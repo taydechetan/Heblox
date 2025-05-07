@@ -1,0 +1,29 @@
+.news-heading {
+  font-weight: 700;
+  color: #384c80;
+}
+
+.news-card {
+  border: none;
+}
+
+.news-image {
+  height: 200px;
+  object-fit: cover;
+  border-radius: 4px 4px 0 0;
+}
+/* 
+.news-title {
+  color: #1a2c5b;
+  margin-bottom: 0.5rem;
+} */
+
+.news-date {
+  color: #007bff;
+  font-weight: 600;
+  font-size: 0.85rem;
+}
+
+.news-source {
+  font-size: 0.85rem;
+}

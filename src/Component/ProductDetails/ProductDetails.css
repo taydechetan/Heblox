@@ -1,0 +1,50 @@
+.toughx-container {
+  background-color: #fff;
+}
+
+.InqureBtn {
+  padding: 10px;
+  background-color: #1a4578;
+  color: white;
+  border: 1px solid #1a4578;
+  border-radius: 5px;
+}
+
+.InqureBtn:hover {
+  background-color: white;
+  color: #1a4578;
+  border-color: #1a4578;
+}
+
+.toughx-main-image {
+  max-width: 80%;
+  border-radius: 8px;
+}
+
+.toughx-title {
+  font-weight: bold;
+}
+
+.toughx-price {
+  color: #000;
+}
+
+.toughx-finance {
+  font-size: 0.9rem;
+}
+
+.toughx-thumbnail img {
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.add-cart-btn {
+  background-color: #f8f9fa;
+  font-weight: 500;
+}
+
+.buy-now-btn {
+  background-color: #002f87;
+  border: none;
+  font-weight: bold;
+}

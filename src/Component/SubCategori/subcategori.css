@@ -1,0 +1,8 @@
+.subcontentsd {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  max-width: 265px;
+  margin: auto;
+  padding: 20px;
+}

@@ -1,0 +1,318 @@
+.hero-img {
+  height: 373px;
+  object-fit: cover;
+  width: 100%;
+}
+
+.hideicon {
+  display: none;
+}
+
+.hero-content {
+  background: #fff;
+  padding: 30px;
+  height: 373px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  position: relative;
+  z-index: 2;
+  margin-left: -20%;
+  top: 40px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.hero-arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 40px;
+  color: #1a4578;
+  background: transparent;
+  border: 2px solid #1a4578;
+  border-radius: 50%;
+  padding: 9px;
+  z-index: 3;
+}
+
+.hideicon {
+  display: none;
+}
+
+@media (max-width: 768px) {
+  .hero-img {
+    height: 250px;
+  }
+
+  .hero-content {
+    height: auto;
+    margin-left: 0;
+    top: 0;
+    padding: 20px;
+  }
+
+  .hero-arrow {
+    font-size: 30px;
+    padding: 6px;
+  }
+}
+
+.img-fluid {
+  transition: transform 3.1s ease-in-out;
+  object-fit: cover;
+}
+
+.img-fluid:hover {
+  transform: scale(1.1);
+}
+
+.SecondImg {
+  background: #fff;
+  padding: 30px;
+  height: 373px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  position: relative;
+  z-index: 2;
+  margin-left: -20%;
+  top: 4vh;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.Rightssicons {
+  position: absolute;
+  top: 50%;
+  right: 10px;
+  transform: translateY(-50%);
+  font-size: 40px;
+  color: #1a4578;
+  background: transparent;
+  border: 2px solid #1a4578;
+  border-radius: 50%;
+  padding: 9px;
+  z-index: 3;
+}
+
+.Buttonx {
+  position: absolute;
+  top: 50%;
+  left: 20px;
+  transform: translateY(-50%);
+  border-radius: 50%;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+}
+
+.buttony {
+  position: absolute;
+  top: 50%;
+  right: 20px;
+  transform: translateY(-50%);
+  border-radius: 50%;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+}
+
+.getAppoinment {
+  padding: 10px;
+  background-color: #1a4578;
+  color: white;
+  border: 1px solid #1a4578;
+  border-radius: 5px;
+}
+
+.getAppoinment:hover {
+  background-color: white;
+  color: #1a4578;
+  border-color: #1a4578;
+}
+
+.Needhelp:hover {
+  background-color: white;
+  color: #1a4578;
+  border-color: #1a4578;
+}
+
+.Needhelp {
+  padding: 10px;
+  background-color: #1a4578;
+  color: white;
+  border: 1px solid #1a4578;
+  border-radius: 5px;
+}
+
+.BtnSections {
+  display: flex !important;
+  flex-direction: row !important;
+  justify-content: center;
+  gap: 10px;
+}
+
+@media (max-width: 512px) {
+  .SecondImg {
+    background-color: white;
+    font-size: 10px;
+    top: -386px;
+    left: 101px;
+    height: 38vh;
+    width: 80%;
+  }
+
+  .Rightssicons {
+    position: absolute;
+    top: -60%;
+    right: 10px;
+    transform: translateY(-50%);
+    font-size: 40px;
+    color: #1a4578;
+    background: transparent;
+    border: 2px solid #1a4578;
+    border-radius: 50%;
+    padding: 9px;
+    z-index: 3;
+  }
+
+  .TtileForBanne {
+    font-size: 1.2rem;
+  }
+
+  /* .hideicon {
+    display: flex;
+    background-color: red;
+  }
+
+  .hideicon {
+    display: flex;
+    background-color: red;
+  } */
+}
+
+.Goarrowlefts {
+  position: absolute;
+  top: 50%;
+  left: 10px;
+  transform: translateY(-50%);
+  font-size: 40px;
+  color: #1a4578;
+  background: transparent;
+  border: 2px solid #1a4578;
+  border-radius: 50%;
+  padding: 9px;
+}
+
+.img-fluidesss {
+  transform: scale(1.1);
+}
+
+@media (min-width: 350px) and (max-width: 390px) {
+  .Rightssicons {
+    top: -81%;
+  }
+}
+
+@media (max-width: 512px) {
+  .SecondImg {
+    /* position: static; */
+    background-color: white;
+    font-size: 12px;
+    height: auto;
+    width: 69%;
+    padding: 20px;
+    margin-left: 0;
+    /* top: 0; */
+    box-shadow: none;
+  }
+
+  .Goarrowlefts,
+  .Rightssicons {
+    display: inline-block;
+    font-size: 28px;
+    border: 2px solid #1a4578;
+    border-radius: 50%;
+    padding: 8px;
+    color: #1a4578;
+  }
+
+  .TtileForBanne {
+    font-size: 1.2rem;
+  }
+
+  .BannerP {
+    height: auto;
+    flex-direction: column;
+  }
+
+  .img-fluid {
+    height: auto;
+    width: 100%;
+    object-fit: cover;
+  }
+
+  .getAppoinment,
+  .Needhelp {
+    font-size: 14px;
+    padding: 8px 12px;
+  }
+}
+
+@media (min-width: 768px) {
+  .mobile-arrow-row {
+    display: none;
+  }
+
+  .mobile-arrow-icon {
+    display: none;
+  }
+}
+
+@media (max-width: 512px) {
+  .SecondImg {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: white;
+    font-size: 12px;
+    height: auto;
+    width: 85%;
+    padding: 20px;
+    margin-left: 0;
+    box-shadow: none;
+    z-index: 5;
+  }
+
+  .BannerP {
+    position: relative;
+  }
+
+  .Rightssicons {
+    display: none;
+  }
+
+  .Goarrowlefts {
+    display: none;
+  }
+
+  .mobile-arrow-row {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    margin-top: 15px;
+  }
+
+  .styled-icon {
+    width: 40px;
+    height: 40px;
+    /* font-size: 20px; */
+    color: #1a4e78;
+    background: transparent;
+    border: 2px solid #1a4578;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .mobile-arrow-row .styled-icon {
+    width: 25px;
+  }
+}

@@ -1,0 +1,42 @@
+.solar-main-wrapper {
+  background-color: #dcdce0;
+}
+
+.solar-left-section h1 {
+  font-size: 2rem;
+}
+
+.solar-caption {
+  font-size: 1.1rem;
+}
+
+.btn-bill-option {
+  border-radius: 20px;
+  padding: 5px 15px;
+}
+
+.solar-form-box input {
+  background-color: #f6f6f6;
+  border: none;
+  border-radius: 8px;
+}
+
+.Ghsnow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.Btnss {
+  padding: 10px;
+  background-color: #1a4578;
+  color: white;
+  border: 1px solid #1a4578;
+  border-radius: 5px;
+}
+
+.Btnss:hover {
+  background-color: white;
+  color: #1a4578;
+  border-color: #1a4578;
+}

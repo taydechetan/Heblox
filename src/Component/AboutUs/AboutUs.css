@@ -1,0 +1,132 @@
+.about_image_wrapper {
+  position: relative;
+}
+
+.offers {
+  color: #606060;
+  font-family: Mulish, sans-serif;
+}
+
+.abouts_heading {
+  font-family: Mulish, sans-serif;
+}
+
+.AboutBtn {
+  padding: 10px;
+  background-color: #1a4578;
+  color: white;
+  border: 1px solid #1a4578;
+  border-radius: 5px;
+}
+
+.AboutBtn:hover {
+  background-color: white;
+  color: #1a4578;
+  border-color: #1a4578;
+}
+
+.about_image {
+  width: 436px;
+  margin-left: auto;
+}
+
+@media (min-width: 768px) and (max-width: 1024px) {
+  .about_image {
+    width: 72%;
+  }
+}
+
+@media (max-width: 512px) {
+  .about_image {
+    width: 90%;
+    margin-top: 5vh;
+  }
+
+  .about_content {
+    padding-right: 1px;
+  }
+}
+
+.about_image img {
+  width: 100%;
+  height: 470px;
+  object-fit: cover;
+  clip-path: polygon(15% 0, 100% 0, 100% 85%, 86% 100%, 0 100%, 0 19%);
+}
+.small_image_wrapper {
+  max-width: 240px;
+  position: absolute;
+  bottom: 30px;
+  left: 110px;
+  height: 320px;
+}
+
+.about_image_wrapper .dots {
+  position: absolute;
+  top: 23px;
+  left: 0px;
+  height: 54px;
+  overflow: hidden;
+  opacity: 0.2;
+}
+
+.small_image_wrapper img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.about_content {
+  padding-right: 40px;
+}
+
+.box_section {
+  background: #f8f9fb;
+}
+.about_TopList {
+  list-style: none;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  margin: 0;
+  grid-gap: 20px;
+}
+
+.about_TopList li {
+  padding: 25px;
+  background: #fff;
+  border-bottom: 3px solid var(--theme_color);
+}
+
+.about_TopList li span {
+  display: block;
+  margin-top: 50px;
+}
+.experienve_wrapper {
+  position: absolute;
+  padding: 10px 20px;
+
+  background-color: #1a4578;
+  color: white;
+  left: -4px;
+  bottom: 40px;
+}
+.experienve_wrapper h5 {
+  margin-bottom: 0;
+  font-size: 36px;
+  font-weight: 700;
+  color: var(--white_color);
+}
+
+.experienve_wrapper:after {
+  content: "";
+  border-right: 20px solid #fd5c6b;
+  position: absolute;
+  border-bottom: 10px solid transparent;
+  left: 0;
+  bottom: -10px;
+}
+
+.experienve_wrapper p {
+  margin-bottom: 0;
+  color: var(--white_color);
+}
