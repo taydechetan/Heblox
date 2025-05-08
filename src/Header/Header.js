@@ -37,9 +37,9 @@ export default function Header() {
 
     const id = 10;
 
-    const Products = async () => {
+    const Products = async (id) => {
         try {
-            const response = await apiCallNew("get", null, ApiEndPoints.Products / id);
+            const response = await apiCallNew("get", null, ApiEndPoints.Products + id);
             if (response && response.status === 200) {
                 console.log("res///", response);
             }
@@ -54,6 +54,8 @@ export default function Header() {
     useEffect(() => {
         Products();
     }, [])
+
+
 
     // const closeNavbar = () => {
     //     const navbar = document.getElementById("navbarSupportedContent");
