@@ -5,7 +5,13 @@ import image1 from "../../Assets/Images/000_9PD9WV.webp";
 import image2 from "../../Assets/Images/27_solar2_1_3_1.jpg";
 import image3 from "../../Assets/Images/i-auction.webp";
 import image4 from "../../Assets/Images/pro-1.jpg";
-import Home from '../../Home/Home';
+
+import images1 from "../../Assets/Images/events.png";
+import images2 from "../../Assets/Images/award.png";
+import images3 from "../../Assets/Images/enquiry.png";
+import images4 from "../../Assets/Images/award.png";
+import images5 from "../../Assets/Images/news.png";
+import images6 from "../../Assets/Images/reference.png";
 
 const newsData = [
     {
@@ -37,7 +43,56 @@ const newsData = [
 const News = () => {
     return (
         <>
-            <Home />
+            <div>
+                <section
+                    className="custom-banner-section"
+                >
+                    <div className="custom-side-icons">
+                        <a href="refrensh" className="custom-side-icon">
+                            <div className="custom-image-icon">
+                                <img src={images1} alt="social-icon" />
+                            </div>
+                            <span className="custom-label">References</span>
+                        </a>
+                        <a href="ProductServices" className="custom-side-icon">
+                            <div className="custom-image-icon">
+                                <img src={images2} alt="social-icon" />
+                            </div>
+                            <span className="custom-label">Bulk Enquiries</span>
+                        </a>
+                        <a href="servicearea" className="custom-side-icon">
+                            <div className="custom-image-icon">
+                                <img src={images3} alt="social-icon" />
+                            </div>
+                            <span className="custom-label">Visit Stores</span>
+                        </a>
+                        <a href="#!" className="custom-side-icon">
+                            <div className="custom-image-icon">
+                                <img src={images4} alt="social-icon" />
+                            </div>
+                            <span className="custom-label">Dealers</span>
+                        </a>
+                        <a href="award" className="custom-side-icon">
+                            <div className="custom-image-icon">
+                                <img src={images5} alt="social-icon" />
+                            </div>
+                            <span className="custom-label">Awards</span>
+                        </a>
+                        <a href="events" className="custom-side-icon">
+                            <div className="custom-image-icon">
+                                <img src={images6} alt="social-icon" />
+                            </div>
+                            <span className="custom-label">Events</span>
+                        </a>
+                        <a href="news" className="custom-side-icon">
+                            <div className="custom-image-icon">
+                                <img src={images6} alt="social-icon" />
+                            </div>
+                            <span className="custom-label">News</span>
+                        </a>
+                    </div>
+                </section>
+            </div>
             <Container className="news-section py-5">
                 <h2 className='text-center mb-4 mt-2'>News Media</h2>
                 <h4 className="news-heading mb-4">FEATURED STORIES</h4>

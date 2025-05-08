@@ -18,9 +18,6 @@ import image5 from "../Assets/Images/news.png";
 import image6 from "../Assets/Images/reference.png";
 
 export default function Home() {
-    const location = useLocation();
-    const isHomePage = location.pathname === "/";
-
 
     return (
         <>
@@ -75,32 +72,10 @@ export default function Home() {
                 </section>
             </div>
 
-            <>
-                {isHomePage && (
-                    <>
-                        <div>
-                            <section className="custom-banner-section">
-                                <div className="custom-side-icons">
-
-                                </div>
-                            </section>
-                        </div>
-
-                        <Banner />
-                        <BannerSection />
-                        <AboutUs />
-                        <Video />
-                        <ProjectSection />
-                        <ProductServices />
-                        <WhySolar />
-                        <ServiceArea />
-                        <Review />
-                    </>
-                )}
-            </>
 
 
-            {/* <Banner />
+
+            <Banner />
             <BannerSection />
             <AboutUs />
             <Video />
@@ -108,7 +83,7 @@ export default function Home() {
             <ProductServices />
             <WhySolar />
             <ServiceArea />
-            <Review /> */}
+            <Review />
         </>
     );
 }

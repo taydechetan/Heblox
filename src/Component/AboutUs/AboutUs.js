@@ -3,7 +3,6 @@ import "./AboutUs.css";
 import Aboutusimg from "../../Assets/Images/about.png";
 import Vectoreimg from "../../Assets/Images/Vector.png";
 import { FiArrowUpRight } from "react-icons/fi";
-import Home from "../../Home/Home";
 
 export default function AboutUs() {
     return (
@@ -73,7 +72,6 @@ export default function AboutUs() {
                 </div>
             </section>
 
-            <Home />
         </>
     );
 }

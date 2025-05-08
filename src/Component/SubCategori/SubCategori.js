@@ -23,7 +23,6 @@ export default function ProjectSection() {
         window.scrollTo(0, 0);
     }, []);
 
-
     const location = useLocation();
     console.log("KK", location)
     const query = new URLSearchParams(location.search);

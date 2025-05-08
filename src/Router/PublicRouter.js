@@ -19,6 +19,7 @@ import Refrensh from "../Screen/Refrensh/Refrensh";
 import Award from "../Screen/Award/Award";
 import News from "../Screen/News/News";
 import Events from "../Screen/Events/Events";
+import ContactUs from "../Screen/Contactus/ContactUs";
 
 export default function PublicRouter() {
     const location = useLocation();
@@ -42,6 +43,7 @@ export default function PublicRouter() {
                 <Route path="award" element={<Award />} />
                 <Route path="news" element={<News />} />
                 <Route path="events" element={<Events />} />
+                <Route path="contactus" element={<ContactUs />} />
                 <Route path="subcategori" element={<SubCategori key={location.search} />} />
             </Routes>
             <Footer />

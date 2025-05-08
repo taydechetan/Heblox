@@ -190,7 +190,7 @@ export default function Footer() {
                                         </a>
                                     </li>
                                     <li>
-                                        <a href="#">
+                                        <a href="contactus">
                                             <FaArrowRightLong className="footer_hover_icon" />{" "}
                                             <span>Contact</span>
                                         </a>

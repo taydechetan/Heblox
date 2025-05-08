@@ -2,7 +2,12 @@ import React from 'react';
 import { Container, Row, Col, Button, Image } from 'react-bootstrap';
 import { FaRegCalendarAlt } from 'react-icons/fa';
 import './Events.css';
-import Home from '../../Home/Home';
+import image1 from "../../Assets/Images/events.png";
+import image2 from "../../Assets/Images/award.png";
+import image3 from "../../Assets/Images/enquiry.png";
+import image4 from "../../Assets/Images/award.png";
+import image5 from "../../Assets/Images/news.png";
+import image6 from "../../Assets/Images/reference.png";
 
 const eventData = [
     {
@@ -37,6 +42,57 @@ const eventData = [
 const Events = () => {
     return (
         <>
+            <div>
+                <section
+                    className="custom-banner-section"
+                >
+                    <div className="custom-side-icons">
+                        <a href="refrensh" className="custom-side-icon">
+                            <div className="custom-image-icon">
+                                <img src={image1} alt="social-icon" />
+                            </div>
+                            <span className="custom-label">References</span>
+                        </a>
+                        <a href="ProductServices" className="custom-side-icon">
+                            <div className="custom-image-icon">
+                                <img src={image2} alt="social-icon" />
+                            </div>
+                            <span className="custom-label">Bulk Enquiries</span>
+                        </a>
+                        <a href="servicearea" className="custom-side-icon">
+                            <div className="custom-image-icon">
+                                <img src={image3} alt="social-icon" />
+                            </div>
+                            <span className="custom-label">Visit Stores</span>
+                        </a>
+                        <a href="#!" className="custom-side-icon">
+                            <div className="custom-image-icon">
+                                <img src={image4} alt="social-icon" />
+                            </div>
+                            <span className="custom-label">Dealers</span>
+                        </a>
+                        <a href="award" className="custom-side-icon">
+                            <div className="custom-image-icon">
+                                <img src={image5} alt="social-icon" />
+                            </div>
+                            <span className="custom-label">Awards</span>
+                        </a>
+                        <a href="events" className="custom-side-icon">
+                            <div className="custom-image-icon">
+                                <img src={image6} alt="social-icon" />
+                            </div>
+                            <span className="custom-label">Events</span>
+                        </a>
+                        <a href="news" className="custom-side-icon">
+                            <div className="custom-image-icon">
+                                <img src={image6} alt="social-icon" />
+                            </div>
+                            <span className="custom-label">News</span>
+                        </a>
+                    </div>
+                </section>
+            </div>
+
             <Container fluid className="event-page-wrapper py-5">
                 {eventData.map((event) => (
                     <Row key={event.id} className="align-items-center mb-5">
@@ -61,7 +117,6 @@ const Events = () => {
                     </Row>
                 ))}
             </Container>
-            <Home />
         </>
     );
 };

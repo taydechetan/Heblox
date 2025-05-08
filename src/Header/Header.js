@@ -9,11 +9,9 @@ import ApiEndPoints from "../Network_Call/ApiEndPoints";
 export default function Header() {
     const navigate = useNavigate();
     const [load, setLoad] = useState(false);
-    const [categories, setCategory] = useState('');
+    const [categories, setCategory] = useState([]);
 
     console.log("data", categories);
-
-
     const GetapiResponse = async () => {
         try {
             setLoad(true);
@@ -37,14 +35,33 @@ export default function Header() {
         GetapiResponse();
     }, []);
 
-    const closeNavbar = () => {
-        const navbar = document.getElementById("navbarSupportedContent");
-        const bsCollapse = new window.bootstrap.Collapse(navbar, {
-            toggle: false,
-        });
-        bsCollapse.hide();
-    };
+    const id = 10;
 
+    const Products = async () => {
+        try {
+            const response = await apiCallNew("get", null, ApiEndPoints.Products / id);
+            if (response && response.status === 200) {
+                console.log("res///", response);
+            }
+            else {
+                console.log("object", response)
+            }
+        } catch (error) {
+            console.log("error", error)
+        }
+    }
+
+    useEffect(() => {
+        Products();
+    }, [])
+
+    // const closeNavbar = () => {
+    //     const navbar = document.getElementById("navbarSupportedContent");
+    //     const bsCollapse = new window.bootstrap.Collapse(navbar, {
+    //         toggle: false,
+    //     });
+    //     bsCollapse.hide();
+    // };
 
 
     const handleClick = (parentName, childName) => {
@@ -53,7 +70,7 @@ export default function Header() {
                 parentName
             )}&child=${encodeURIComponent(childName)}`
         );
-        closeNavbar();
+        // closeNavbar();
     };
 
     const handlopenenqury = (e) => {
@@ -94,203 +111,55 @@ export default function Header() {
                                     onClick={(e) => {
                                         e.preventDefault();
                                         handleClick(" ", "Daily Deals");
-                                        closeNavbar();
+                                        // closeNavbar();
                                     }}
                                 >
                                     Daily Deals
                                 </a>
                             </li>
 
+                            {Array.isArray(categories) &&
+                                categories.map((category) => (
+                                    <li key={category.id} className="nav-item dropdown">
+                                        {console.log(">>>??", category?.id)}
+                                        <a
+                                            className="nav-link d-flex align-items-center"
+                                            href="#"
+                                            id={`dropdown-${category.id}`}
+                                            role="button"
+                                            data-bs-toggle="dropdown"
+                                            aria-expanded="false"
+                                        >
+                                            {category.category_name} <MdKeyboardArrowDown className="btsss" />
+                                        </a>
 
-                            <li className="nav-item dropdown">
-                                <a
-                                    className="nav-link d-flex align-items-center"
-                                    href="#"
-                                    id="solarDropdown"
-                                    role="button"
-                                    data-bs-toggle="dropdown"
-                                    aria-expanded="false"
-                                >
-                                    Solar Combos <MdKeyboardArrowDown className="btsss" />
-                                </a>
+                                        <ul className="dropdown-menu" aria-labelledby={`dropdown-${category.id}`}>
+                                            {/* {console.log("??", category?.sub_categories)}; */}
 
-                                <ul className="dropdown-menu">
-                                    {[
-                                        "Standalone kits",
-                                        "Grounmount",
-                                        "Wallmount",
-                                        "Rooftops",
-                                        "Balcony",
-                                    ].map((item) => (
-                                        <li key={item}>
-                                            <a
-                                                className="dropdown-item"
-                                                href="#"
-                                                onClick={(e) => {
-                                                    e.preventDefault();
-                                                    handleClick("Solar Combos", item);
-                                                    closeNavbar();
-                                                }}
-                                            >
-                                                {item}
-                                            </a>
-                                        </li>
-                                    ))}
-                                </ul>
+                                            {Array.isArray(category.sub_categories) &&
+                                                category.sub_categories.map((sub) => (
+                                                    <li key={sub.id}>
+                                                        <a
+                                                            className="dropdown-item"
+                                                            href="#"
+                                                            onClick={(e) => {
+                                                                e.preventDefault();
+                                                                handleClick(category.category_name, sub.category_name);
+                                                            }}
+                                                        >
+                                                            {sub.category_name}
+                                                        </a>
+                                                    </li>
+                                                ))}
+                                        </ul>
+                                    </li>
+                                ))}
 
-                                {/* <ul className="dropdown-menu" aria-labelledby="solarDropdown">
-                                    <li><a className="dropdown-item" href="#">Standalone kits</a></li>
-                                    <li><a className="dropdown-item" href="#">Grounmount</a></li>
-                                    <li><a className="dropdown-item" href="#">Wallmount</a></li>
-                                    <li><a className="dropdown-item" href="#">Rooftops</a></li>
-                                    <li><a className="dropdown-item" href="#">Balcony</a></li>
-                                </ul> */}
-                            </li>
 
-                            <li className="nav-item  dropdown">
-                                <a
-                                    className="nav-link d-flex align-items-center"
-                                    href="#"
-                                    id="solarModulesDropdown"
-                                    role="button"
-                                    data-bs-toggle="dropdown"
-                                    aria-expanded="false"
-                                >
-                                    Solar Modules <MdKeyboardArrowDown className="btsss" />
-                                </a>
-                                <ul className="dropdown-menu">
-                                    {["PV modules", "Flexible films", "Solar tiles"].map(
-                                        (item) => (
-                                            <li key={item}>
-                                                <a
-                                                    className="dropdown-item"
-                                                    href="#"
-                                                    onClick={(e) => {
-                                                        e.preventDefault();
-                                                        handleClick("Solar Modules", item);
-                                                        closeNavbar();
-                                                    }}
-                                                >
-                                                    {item}
-                                                </a>
-                                            </li>
-                                        )
-                                    )}
-                                </ul>
-                                {/* <ul className="dropdown-menu" aria-labelledby="solarModulesDropdown">
-                                    <li><a className="dropdown-item" href="#">PV modules</a></li>
-                                    <li><a className="dropdown-item" href="#">Flexible films</a></li>
-                                    <li><a className="dropdown-item" href="#">Solar tiles</a></li>
-                                </ul> */}
-                            </li>
 
-                            <li className="nav-item dropdown">
-                                <a
-                                    className="nav-link d-flex align-items-center"
-                                    href="#"
-                                    id="solarInvertersDropdown"
-                                    role="button"
-                                    data-bs-toggle="dropdown"
-                                    aria-expanded="false"
-                                >
-                                    Solar Invertors <MdKeyboardArrowDown />
-                                </a>
-                                <ul className="dropdown-menu">
-                                    {[
-                                        "Ongrid Invertors",
-                                        "Hybrid Invertors",
-                                        "Micro invertors",
-                                    ].map((item) => (
-                                        <li key={item}>
-                                            <a
-                                                className="dropdown-item"
-                                                href="#"
-                                                onClick={(e) => {
-                                                    e.preventDefault();
-                                                    handleClick("Solar Invertors", item);
-                                                    closeNavbar();
-                                                }}
-                                            >
-                                                {item}
-                                            </a>
-                                        </li>
-                                    ))}
-                                </ul>
 
-                                {/* <ul className="dropdown-menu" aria-labelledby="solarInvertersDropdown">
-                                    <li><a className="dropdown-item" href="#">Ongrid Invertors</a></li>
-                                    <li><a className="dropdown-item" href="#">Hybrid Invertors</a></li>
-                                    <li><a className="dropdown-item" href="#">Micro invertors</a></li>
-                                </ul> */}
-                            </li>
 
-                            <li className="nav-item dropdown">
-                                <a
-                                    className="nav-link d-flex align-items-center"
-                                    href="#"
-                                    id="energyStorageDropdown"
-                                    role="button"
-                                    data-bs-toggle="dropdown"
-                                    aria-expanded="false"
-                                >
-                                    Energy Storage <MdKeyboardArrowDown />
-                                </a>
-                                <ul className="dropdown-menu">
-                                    {["Li-on Batteries", "Power Tanks"].map((item) => (
-                                        <li key={item}>
-                                            <a
-                                                className="dropdown-item"
-                                                href="#"
-                                                onClick={(e) => {
-                                                    e.preventDefault();
-                                                    handleClick("Energy Storage", item);
-                                                    closeNavbar();
-                                                }}
-                                            >
-                                                {item}
-                                            </a>
-                                        </li>
-                                    ))}
-                                </ul>
-                                {/* <ul className="dropdown-menu" aria-labelledby="energyStorageDropdown">
-                                    <li><a className="dropdown-item" href="#">Li-on Batteries</a></li>
-                                    <li><a className="dropdown-item" href="#">Power Tanks</a></li>
-                                </ul> */}
-                            </li>
-
-                            <li className="nav-item dropdown">
-                                <a
-                                    className="nav-link d-flex align-items-center"
-                                    href="#"
-                                    id="roofsFacadesDropdown"
-                                    role="button"
-                                    data-bs-toggle="dropdown"
-                                    aria-expanded="false"
-                                >
-                                    Roofs & Facades <MdKeyboardArrowDown />
-                                </a>
-                                <ul className="dropdown-menu">
-                                    {["Glass Modules", "Metal Modules"].map((item) => (
-                                        <li key={item}>
-                                            <a
-                                                className="dropdown-item"
-                                                href="#"
-                                                onClick={(e) => {
-                                                    e.preventDefault();
-                                                    handleClick("Roofs & Facades", item);
-                                                    closeNavbar();
-                                                }}
-                                            >
-                                                {item}
-                                            </a>
-                                        </li>
-                                    ))}
-                                </ul>
-                                {/* <ul className="dropdown-menu" aria-labelledby="roofsFacadesDropdown">
-                                    <li><a className="dropdown-item" href="#">Glass Modules</a></li>
-                                    <li><a className="dropdown-item" href="#">Metal Modules</a></li>
-                                </ul> */}
-                            </li>
+                            {/* Second Content */}
 
                             {/* <li class="nav-item dropdown">
                                 <a
@@ -413,7 +282,7 @@ export default function Header() {
                         </ul>
                     </div>
                 </div>
-            </nav>
-        </header>
+            </nav >
+        </header >
     );
 }
