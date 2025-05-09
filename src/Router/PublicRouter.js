@@ -37,7 +37,7 @@ export default function PublicRouter() {
                 <Route path="whysolar" element={<WhySolar />} />
                 <Route path="servicearea" element={<ServiceArea />} />
                 <Route path="/" element={<Home />} />
-                <Route path="ProductDetails" element={<ProductDetails />} />
+                <Route path="ProductDetails/:slug" element={<ProductDetails />} />
                 <Route path="inquresnow" element={<InquresNow />} />
                 <Route path="refrensh" element={<Refrensh />} />
                 <Route path="award" element={<Award />} />

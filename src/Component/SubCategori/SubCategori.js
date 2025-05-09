@@ -1,8 +1,4 @@
-import React, { useEffect } from "react";
-import Image1 from "../../Assets/Images/product-1.png";
-import Image2 from "../../Assets/Images/product-2.png";
-import Image3 from "../../Assets/Images/product-3.png";
-import Image4 from "../../Assets/Images/product-4.png";
+import React, { useEffect, useState } from "react";
 import "./subcategori.css";
 import { FaEye } from "react-icons/fa";
 import { IoIosSend } from "react-icons/io";
@@ -16,81 +12,66 @@ import image3 from "../../Assets/Images/enquiry.png";
 import image4 from "../../Assets/Images/award.png";
 import image5 from "../../Assets/Images/news.png";
 import image6 from "../../Assets/Images/reference.png";
+import ApiEndPoints from "../../Network_Call/ApiEndPoints";
+import { apiCallNew } from "../../Network_Call/apiservices";
+import { PulseLoader } from "react-spinners";
 
 export default function ProjectSection() {
+    const [ProDucts, setProducts] = useState([]);
+    const [load, setLoad] = useState(false);
 
     useEffect(() => {
         window.scrollTo(0, 0);
     }, []);
 
     const location = useLocation();
-    console.log("KK", location)
     const query = new URLSearchParams(location.search);
     const parent = query.get("parent");
     const child = query.get("child");
 
     const navigate = useNavigate();
-    const { search } = useLocation();
 
+    const queryParams = new URLSearchParams(location.search);
+    const id = queryParams.get("id");
 
-    const handlopenenqury = (e) => {
-        navigate("/inquresnow");
+    const baseUrl = "https://heblox.aercjbp.com/ap-admin/public/uploads/product/";
+
+    const Prodcutss = async (id) => {
+        try {
+            setLoad(true);
+            const response = await apiCallNew(
+                "get",
+                null,
+                ApiEndPoints.ProductByCategory + id
+            );
+            if (response && response.status === 200) {
+                setLoad(false);
+                setProducts(response.data);
+            } else {
+                setLoad(false);
+                console.log("error", response);
+            }
+        } catch (error) {
+            setLoad(false);
+            console.log("error", error);
+        }
     };
 
-    const products = [
-        {
-            img: Image1,
-            alt: "Solar panel",
-            title: "Loom Solar 10 Wp, 12 V PV Module for Mobile Charging",
-        },
-        {
-            img: Image2,
-            alt: "Loom Solar Panel",
-            title:
-                "Loom Solar 20 Wp, 12 V PV Module for Small Battery Charging & DIY Projects",
-        },
-        {
-            img: Image3,
-            alt: "Loom Solar Panel",
-            title: "Loom Solar Panel - SHARK 600 Wp | N-Type TOPCon Bifacial 16BB",
-        },
-        {
-            img: Image4,
-            alt: "SHARK 730~750",
-            title: "SHARK 730~750 Wp HJT Dual-Glass Solar Panel (Pack of 33)",
-        },
-    ];
+    useEffect(() => {
+        if (id) {
+            Prodcutss(id);
+        }
+    }, [id]);
 
-    const productstow = [
-        {
-            img: Image1,
-            alt: "Solar panel",
-            title: "Loom Solar 10 Wp, 12 V PV Module for Mobile Charging",
-        },
-        {
-            img: Image2,
-            alt: "Loom Solar Panel",
-            title:
-                "Loom Solar 20 Wp, 12 V PV Module for Small Battery Charging & DIY Projects",
-        },
-        {
-            img: Image3,
-            alt: "Loom Solar Panel",
-            title: "Loom Solar Panel - SHARK 600 Wp | N-Type TOPCon Bifacial 16BB",
-        },
-        {
-            img: Image4,
-            alt: "SHARK 730~750",
-            title: "SHARK 730~750 Wp HJT Dual-Glass Solar Panel (Pack of 33)",
-        },
-    ];
+    const handlopenenqury = (id) => {
+        // navigate("/inquresnow");
+        navigate("/inquresnow", { state: { id } });
+    };
 
     return (
         <>
             <div>
-                <section
-                    className="custom-banner-section"
-                >
+                <section className="custom-banner-section">
                     <div className="custom-side-icons">
                         <a href="refrensh" className="custom-side-icon">
                             <div className="custom-image-icon">
@@ -163,28 +144,54 @@ export default function ProjectSection() {
                                         </div>
                                     )}
 
-                                    <h3 className="mt-2" style={{
-                                        marginTop: "10px",
-                                        color: "#000",
-                                    }}>{child}</h3>
+                                    <h3
+                                        className="mt-2"
+                                        style={{
+                                            marginTop: "10px",
+                                            color: "#000",
+                                        }}
+                                    >
+                                        {child}
+                                    </h3>
                                 </div>
-
-
                             </div>
                         </div>
-                        <div className="row product_row  mb-4">
-                            {products.map((product, index) => (
+                        {console.log("ProDucts", ProDucts)}
+
+                        {/* <div className="row product_row  mb-4">
+                            {load && (
+                                <div>
+                                    <PulseLoader
+                                        loading={load}
+                                        color="#3C4DFE"
+                                        className="backdrop"
+                                    />
+                                </div>
+                            )}
+                            {ProDucts.map((product, index) => (
                                 <div key={index} className="col-md-3 product_item">
                                     <div className="product-item">
+                                        {console.log(
+                                            "???",
+                                            product?.product_images?.[0]?.product_image
+                                        )}
                                         <div className="product-thumb">
-                                            <img src={product.img} alt={product.alt} />
+                                            <img
+                                                src={product?.product_images?.[0]?.product_image}
+                                                alt={product?.alt || "Product Image"}
+                                            />
                                         </div>
+
                                         <div className="product-content">
-                                            <h4>{product.title}</h4>
+                                            <h5>{product?.name}</h5>
+                                            <p>{product?.slug}</p>
+
+                                            <h4>{product?.description?.replace(/<[^>]+>/g, "")}</h4>
                                         </div>
+
                                         <div className="product-buttons">
                                             <a
-                                                href="ProductDetails"
+                                                href={`/ProductDetails/${product?.slug}`}
                                                 className="btn btn-view eye-icon-wrapper"
                                             >
                                                 <span className="eye-icon">
@@ -203,41 +210,66 @@ export default function ProjectSection() {
                                     </div>
                                 </div>
                             ))}
-                        </div>
+                        </div> */}
 
-                        {/* second content */}
+                        <div className="row product_row mb-4">
+                            {load ? (
+                                <div>
+                                    <PulseLoader
+                                        loading={load}
+                                        color="#3C4DFE"
+                                        className="backdrop"
+                                    />
+                                </div>
+                            ) : ProDucts.length === 0 ? (
+                                <div className="col-12 text-center">
+                                    <p>Product Is Empty</p>
+                                </div>
+                            ) : (
+                                ProDucts.map((product, index) => (
+                                    <div key={index} className="col-12 col-sm-6 col-md-4 col-lg-3 product_item">
+                                        <div className="product-item">
+                                            {console.log(
+                                                "???",
+                                                product?.product_images?.[0]?.product_image
+                                            )}
+                                            <div className="product-thumb">
+                                                <img
+                                                    // src={product?.product_images?.[0]?.product_image}   
+                                                    src={`${baseUrl}${product?.product_images?.[0]?.product_image}`}
+                                                    alt={product?.alt || "Product Image"}
+                                                />
+                                            </div>
 
-                        <div className="row product_row mt-5 mb-5">
-                            {productstow.map((product, index) => (
-                                <div key={index} className="col-md-3 product_item">
-                                    <div className="product-item">
-                                        <div className="product-thumb">
-                                            <img src={product.img} alt={product.alt} />
-                                        </div>
-                                        <div className="product-content">
-                                            <h4>{product.title}</h4>
-                                        </div>
-                                        <div className="product-buttons">
-                                            <a
-                                                href="ProductDetails"
-                                                className="btn btn-view eye-icon-wrapper"
-                                            >
-                                                <span className="eye-icon">
-                                                    <FaEye />
-                                                </span>
-                                            </a>
+                                            <div className="product-content">
+                                                <h5>{product?.name}</h5>
+                                                <p>{product?.slug}</p>
+                                                <h4>{product?.description?.replace(/<[^>]+>/g, "")}</h4>
+                                                <p>{product?.id}</p>
+                                            </div>
 
-                                            <button className="EnquiryNow" onClick={handlopenenqury}>
-                                                Inquiry Now
-                                                <i className="ri-send-plane-fill">
-                                                    {" "}
-                                                    <IoIosSend />
-                                                </i>
-                                            </button>
+                                            <div className="product-buttons">
+                                                <a
+                                                    href={`/ProductDetails/${product?.slug}`}
+                                                    className="btn btn-view eye-icon-wrapper"
+                                                >
+                                                    <span className="eye-icon">
+                                                        <FaEye />
+                                                    </span>
+                                                </a>
+
+                                                <button className="EnquiryNow" onClick={() => handlopenenqury(product?.id)}>
+                                                    Inquiry Now
+                                                    <i className="ri-send-plane-fill">
+                                                        {" "}
+                                                        <IoIosSend />
+                                                    </i>
+                                                </button>
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
-                            ))}
+                                ))
+                            )}
                         </div>
                     </div>
                 </section>

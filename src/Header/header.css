@@ -6,6 +6,20 @@
   list-style: none;
 }
 
+.backdrop {
+  position: "fixed";
+  top: 0;
+  left: 0;
+  width: "100%";
+  height: "100%";
+  background-color: "rgba(0, 0, 0, 0.5)";
+  z-index: 1000;
+  display: "flex";
+  justify-content: "center";
+  align-items: "center";
+  color: "#3260a8";
+}
+
 .nav-link {
   color: #333 !important;
   font-weight: 500;

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import "./footer.css";
 import {
     FaArrowRightLong,
@@ -9,8 +9,33 @@ import {
 import { RiTwitterXFill } from "react-icons/ri";
 import { IoIosSend } from "react-icons/io";
 import { useNavigate } from "react-router-dom";
+import { apiCallNew } from "../Network_Call/apiservices";
+import ApiEndPoints from "../Network_Call/ApiEndPoints";
 
 export default function Footer() {
+    const [email, setEmail] = useState('');
+
+    const HandelSubmit = async (e) => {
+        e.preventDefault();
+        try {
+            if (!email) {
+                alert('Please provide email  ');
+                return;
+            }
+            const payload = { email };
+
+            const response = await apiCallNew("post", payload, ApiEndPoints.SubscribeNow);
+            if (response.status === 200) {
+                console.log("response", response);
+            } else {
+                console.log("error", response);
+            }
+        } catch (error) {
+            console.log("error", error);
+        }
+    }
+
+
     const navigate = useNavigate();
 
     const categories = [
@@ -65,11 +90,13 @@ export default function Footer() {
                                     The Communities. Latest News, the of <br />
                                     the community.
                                 </p>
-                                <form className="footer_subscribe_form d-flex">
+                                <form className="footer_subscribe_form d-flex" onSubmit={HandelSubmit}>
                                     <input
                                         type="email"
                                         className="footer_input"
                                         placeholder="Your email.."
+                                        value={email}
+                                        onChange={(e) => setEmail(e.target.value)}
                                     />
                                     <button type="submit" className="footer_sendButton">
                                         <IoIosSend />

@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Container, Row, Col, Form, Button } from "react-bootstrap";
 import "./InquresNow.css";
 import Image from "../../Assets/Images/product-1.png";
@@ -10,11 +10,76 @@ import image3 from "../../Assets/Images/enquiry.png";
 import image4 from "../../Assets/Images/award.png";
 import image5 from "../../Assets/Images/news.png";
 import image6 from "../../Assets/Images/reference.png";
+import { apiCallNew } from "../../Network_Call/apiservices";
+import ApiEndPoints from "../../Network_Call/ApiEndPoints";
+import toast from "react-hot-toast";
+import { useLocation } from "react-router-dom";
 
 const InquresNow = () => {
+
+  const [load, setLoad] = useState('');
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
+  const [phone, setPhone] = useState('');
+  const [address, setAddress] = useState('');
+  const [pincode, setPincode] = useState('');
+  const [appoinmentDate, setAppoinmentdate] = useState('');
+  const [description, setDescription] = useState('');
+  const [isChecked, setIsChecked] = useState(false);
+
+  console.log("???", name)
+
+  const location = useLocation();
+  const productId = location.state?.id;
+
+  console.log("productId", productId);
+
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
+
+  const handelclicks = async (e) => {
+    e.preventDefault();
+    try {
+      setLoad(true);
+      // if (!email || !name || !phone || !address || !pincode || !appoinmentDate || !description) {
+      //   toast.error('Please Fill All Fillds');
+      //   return;
+      // }
+
+      // if (!isChecked) {
+      //   toast.error('Please Click The Check Box');
+      //   return;
+      // }
+
+      const payload = {
+        "product_id": productId,
+        "Name": name,
+        "email": email,
+        "phone": phone,
+        "message": description,
+        "address": address,
+        "pincode": pincode,
+        "appointment_date": appoinmentDate,
+      }
+
+      const response = await apiCallNew("post", payload, ApiEndPoints.CreateEnquiry);
+      if (response && response.status === 200) {
+        setLoad(false);
+        toast.success(response.msg);
+        console.log("response", response);
+      } else {
+        setLoad(false);
+        toast.error(response.message);
+        console.log("error", response);
+      }
+    } catch (error) {
+      setLoad(false)
+      toast.error(error.message)
+      console.log("error", error);
+    }
+  }
+
 
   return (
     <>
@@ -93,13 +158,17 @@ const InquresNow = () => {
             <Col lg={6}>
               <div className="solar-form-box bg-white p-4 rounded shadow-sm">
                 <h5 className="fw-bold">Book a FREE Solar Consultation</h5>
-                <Form>
-                  <Form.Group className="mb-3">
+                <Form onSubmit={handelclicks}>
+                  {/* <Form.Group className="mb-3">
                     <Form.Label>
-                      Full name <span className="text-danger">*</span>
+                      Name <span className="text-danger">*</span>
                     </Form.Label>
-                    <Form.Control type="text" placeholder="Enter full Name" />
-                  </Form.Group>
+                    <Form.Control
+                      type="text"
+                      placeholder="Enter  Name"
+                      value={name}
+                      onChange={(e) => setName(e.target.value)} />
+                  </Form.Group> */}
 
                   <Form.Group className="mb-3">
                     <Form.Label>
@@ -108,6 +177,8 @@ const InquresNow = () => {
                     <Form.Control
                       type="number"
                       placeholder="Enter WhatsApp Number"
+                      value={phone}
+                      onChange={(e) => setPhone(e.target.value)}
                     />
                   </Form.Group>
 
@@ -115,33 +186,57 @@ const InquresNow = () => {
                     <Form.Label>
                       Pin code <span className="text-danger">*</span>
                     </Form.Label>
-                    <Form.Control type="number" placeholder="Enter pin code" />
+                    <Form.Control type="number" placeholder="Enter pin code"
+                      value={pincode}
+                      onChange={(e) => setPincode(e.target.value)}
+                    />
                   </Form.Group>
 
                   <Form.Group className="mb-3">
                     <Form.Label>
                       Email-id<span className="text-danger">*</span>
                     </Form.Label>
-                    <Form.Control type="email" placeholder="Enter E-Mail ID" />
+                    <Form.Control type="email" placeholder="Enter E-Mail ID"
+                      value={email}
+                      onChange={(e) => setEmail(e.target.value)}
+                    />
                   </Form.Group>
 
                   <Form.Group className="mb-3">
                     <Form.Label>
                       Address<span className="text-danger">*</span>
                     </Form.Label>
-                    <Form.Control type="email" placeholder="Enter Address" />
+                    <Form.Control type="address" placeholder="Enter Address"
+                      value={address}
+                      onChange={(e) => setAddress(e.target.value)}
+                    />
+                  </Form.Group>
+
+                  <Form.Group className="mb-3">
+                    <Form.Label>
+                      Appoinment Date<span className="text-danger">*</span>
+                    </Form.Label>
+                    <Form.Control type="date" placeholder="Enter Appoinment Date"
+                      value={appoinmentDate}
+                      onChange={(e) => setAppoinmentdate(e.target.value)}
+                    />
                   </Form.Group>
 
                   <Form.Group className="mb-3">
                     <Form.Label>
                       Description<span className="text-danger">*</span>
                     </Form.Label>
-                    <Form.Control as="textarea" rows={4} placeholder="Enter description" />
+                    <Form.Control as="textarea" rows={4} placeholder="Enter description"
+                      value={description}
+                      onChange={(e) => setDescription(e.target.value)}
+                    />
                   </Form.Group>
 
                   <Form.Group className="mb-3 form-check">
                     <Form.Check
                       type="checkbox"
+                      checked={isChecked}
+                      onChange={(e) => setIsChecked(e.target.checked)}
                       label={
                         <>
                           I agree to SolarSquare's{" "}

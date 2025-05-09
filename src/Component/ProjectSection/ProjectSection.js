@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Image1 from "../../Assets/Images/product-1.png";
 import Image2 from "../../Assets/Images/product-2.png";
 import Image3 from "../../Assets/Images/product-3.png";
@@ -7,38 +7,42 @@ import "./ProjectSection.css";
 import { FaEye } from "react-icons/fa";
 import { IoIosSend } from "react-icons/io";
 import { useNavigate } from "react-router-dom";
+import { apiCallNew } from "../../Network_Call/apiservices";
+import ApiEndPoints from "../../Network_Call/ApiEndPoints";
+import image from "../../Assets/Images/image_12323913.png";
 
 export default function ProjectSection() {
+    const [productdata, setProductsdata] = useState([]);
+
+    console.log("productdata???", productdata);
+
     const navigate = useNavigate();
 
-    const handlopenenqury = () => {
-        navigate('/inquresnow')
-    }
+    const handlopenenqury = (id) => {
+        navigate("/inquresnow", { state: { id: id } });
+    };
 
+    const Products = async () => {
+        try {
+            const response = await apiCallNew(
+                "get",
+                null,
+                ApiEndPoints.HomePageProducts
+            );
+            if (response && response.status === 200) {
+                setProductsdata(response.data);
+                console.log("Productsdata", response);
+            } else {
+                console.log("error", response);
+            }
+        } catch (error) {
+            console.log("error", error);
+        }
+    };
 
-    const products = [
-        {
-            img: Image1,
-            alt: "Solar panel",
-            title: "Loom Solar 10 Wp, 12 V PV Module for Mobile Charging",
-        },
-        {
-            img: Image2,
-            alt: "Loom Solar Panel",
-            title:
-                "Loom Solar 20 Wp, 12 V PV Module for Small Battery Charging & DIY Projects",
-        },
-        {
-            img: Image3,
-            alt: "Loom Solar Panel",
-            title: "Loom Solar Panel - SHARK 600 Wp | N-Type TOPCon Bifacial 16BB",
-        },
-        {
-            img: Image4,
-            alt: "SHARK 730~750",
-            title: "SHARK 730~750 Wp HJT Dual-Glass Solar Panel (Pack of 33)",
-        },
-    ];
+    useEffect(() => {
+        Products();
+    }, []);
 
     return (
         <div>
@@ -52,15 +56,10 @@ export default function ProjectSection() {
                                     alignItems: "center",
                                     justifyContent: "center",
                                     gap: "10px",
-                                    marginTop: "25px"
+                                    marginTop: "25px",
                                 }}
                             >
-                                <h4
-                                    // className="subtitle"
-                                    style={{ margin: 0, color: "#1a4578" }}
-                                >
-                                    PRODUCT
-                                </h4>
+                                <h4 style={{ margin: 0, color: "#1a4578" }}>PRODUCT</h4>
                                 <div
                                     style={{
                                         width: "100px",
@@ -74,23 +73,31 @@ export default function ProjectSection() {
                     </div>
 
                     <div className="row product_row">
-                        {products.map((product, index) => (
+                        {productdata.map((product, index) => (
                             <div key={index} className="col-md-3 product_item">
                                 <div className="product-item">
                                     <div className="product-thumb">
                                         <img src={product.img} alt={product.alt} />
                                     </div>
                                     <div className="product-content">
-                                        <h4>{product.title}</h4>
+                                        <h4>{product?.name}</h4>
+                                        <h4>{product?.description}</h4>
+                                        {/* <p>{product?.short_desc}</p> */}
                                     </div>
                                     <div className="product-buttons">
-                                        <a href="ProductDetails" className="btn btn-view eye-icon-wrapper">
+                                        <a
+                                            href="ProductDetails"
+                                            className="btn btn-view eye-icon-wrapper"
+                                        >
                                             <span className="eye-icon">
                                                 <FaEye />
                                             </span>
                                         </a>
 
-                                        <button className="EnquiryNow" onClick={handlopenenqury}>
+                                        <button
+                                            className="EnquiryNow"
+                                            onClick={() => handlopenenqury(product?.id)}
+                                        >
                                             Enquiry Now
                                             <i className="ri-send-plane-fill">
                                                 {" "}
@@ -106,7 +113,4 @@ export default function ProjectSection() {
             </section>
         </div>
     );
-};
-
-
-
+}

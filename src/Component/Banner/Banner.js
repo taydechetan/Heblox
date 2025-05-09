@@ -5,6 +5,7 @@ import "./banner.css";
 import { MdArrowOutward } from "react-icons/md";
 import Prov1 from "../../Assets/Images/pro-1.jpg";
 import Prov2 from "../../Assets/Images/pro-2.jpg";
+import { useNavigate } from "react-router-dom";
 
 const sliderData = [
     {
@@ -30,8 +31,14 @@ const sliderData = [
     },
 ];
 
+
 const Banner = () => {
     const [currentSlide, setCurrentSlide] = useState(0);
+
+    const navigate = useNavigate();
+    const handelclick = () => {
+        navigate('/inquresnow');
+    }
 
     const goToNextSlide = () => {
         setCurrentSlide((prev) => (prev + 1) % sliderData.length);
@@ -85,7 +92,7 @@ const Banner = () => {
                                                 <MdArrowOutward />
                                             </span>
                                         </button>
-                                        <button className="getAppoinment">
+                                        <button className="getAppoinment" onClick={handelclick}>
                                             Get Appointment{" "}
                                             <span style={{ marginLeft: "8px" }}>
                                                 <GoArrowRight />

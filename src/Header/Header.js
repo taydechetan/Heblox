@@ -5,13 +5,15 @@ import { MdKeyboardArrowDown } from "react-icons/md";
 import { useNavigate } from "react-router-dom";
 import { apiCallNew } from "../Network_Call/apiservices";
 import ApiEndPoints from "../Network_Call/ApiEndPoints";
+import { PulseLoader } from "react-spinners";
 
 export default function Header() {
     const navigate = useNavigate();
     const [load, setLoad] = useState(false);
     const [categories, setCategory] = useState([]);
+    console.log("data", categories)
 
-    console.log("data", categories);
+
     const GetapiResponse = async () => {
         try {
             setLoad(true);
@@ -19,7 +21,7 @@ export default function Header() {
 
             if (response && response.status === 200) {
                 setLoad(false);
-                setCategory(response?.data)
+                setCategory(response?.data);
                 // console.log("Data from API:", response.data);
             } else {
                 setLoad(false);
@@ -35,45 +37,54 @@ export default function Header() {
         GetapiResponse();
     }, []);
 
-    const id = 10;
 
-    const Products = async (id) => {
-        try {
-            const response = await apiCallNew("get", null, ApiEndPoints.Products + id);
-            if (response && response.status === 200) {
-                console.log("res///", response);
-            }
-            else {
-                console.log("object", response)
-            }
-        } catch (error) {
-            console.log("error", error)
-        }
-    }
-
-    useEffect(() => {
-        Products();
-    }, [])
+    const closeNavbar = () => {
+        const navbar = document.getElementById("navbarSupportedContent");
+        const bsCollapse = new window.bootstrap.Collapse(navbar, {
+            toggle: false,
+        });
+        bsCollapse.hide();
+    };
 
 
+    // const Prodcutss = async (id) => {
+    //     try {
+    //         const response = await apiCallNew("get", null, ApiEndPoints.ProductsByid + id);
+    //         if (response && response.status === 200) {
+    //             // setProduct(response.data)
+    //             console.log("response", response);
+    //         } else {
+    //             console.log("error", response)
+    //         }
+    //     } catch (error) {
+    //         console.log("error", error)
+    //     }
+    // }
 
-    // const closeNavbar = () => {
-    //     const navbar = document.getElementById("navbarSupportedContent");
-    //     const bsCollapse = new window.bootstrap.Collapse(navbar, {
-    //         toggle: false,
-    //     });
-    //     bsCollapse.hide();
+    // useEffect(() => {
+    //     const id = 10;
+    //     Prodcutss(id);
+    // }, [])
+
+    // const handleClick = (parentName, childName) => {
+    //     navigate(
+    //         `/subcategori?parent=${encodeURIComponent(
+    //             parentName
+    //         )}&child=${encodeURIComponent(childName)}`
+    //     );
+    //     closeNavbar();
     // };
 
+    const handleClick = (parentName, childName, id) => {
+        // navigate(
+        //     `/subcategori?parent=${encodeURIComponent(parentName)}&child=${encodeURIComponent(childName)}&id=${encodeURIComponent(id)}`
+        // );
+        navigate(`/subcategori?parent=${parentName}&child=${childName}&id=${id}`);
 
-    const handleClick = (parentName, childName) => {
-        navigate(
-            `/subcategori?parent=${encodeURIComponent(
-                parentName
-            )}&child=${encodeURIComponent(childName)}`
-        );
-        // closeNavbar();
+        closeNavbar();
     };
+
+
 
     const handlopenenqury = (e) => {
         navigate("/inquresnow");
@@ -87,6 +98,11 @@ export default function Header() {
                         <img src={Logo} alt="logo" className="normal_logo" />
                     </a>
 
+                    {load && (
+                        <div>
+                            <PulseLoader loading={load} color="#3C4DFE" className="backdrop" />
+                        </div>
+                    )}
                     <button
                         className="navbar-toggler"
                         type="button"
@@ -123,7 +139,7 @@ export default function Header() {
                             {Array.isArray(categories) &&
                                 categories.map((category) => (
                                     <li key={category.id} className="nav-item dropdown">
-                                        {console.log(">>>??", category?.id)}
+                                        {/* {console.log(">>>??", category?.id)} */}
                                         <a
                                             className="nav-link d-flex align-items-center"
                                             href="#"
@@ -146,7 +162,8 @@ export default function Header() {
                                                             href="#"
                                                             onClick={(e) => {
                                                                 e.preventDefault();
-                                                                handleClick(category.category_name, sub.category_name);
+                                                                handleClick(category.category_name, sub.category_name, sub.id);
+                                                                closeNavbar();
                                                             }}
                                                         >
                                                             {sub.category_name}
@@ -156,9 +173,6 @@ export default function Header() {
                                         </ul>
                                     </li>
                                 ))}
-
-
-
 
 
                             {/* Second Content */}
