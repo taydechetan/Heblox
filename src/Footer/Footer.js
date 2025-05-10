@@ -9,31 +9,69 @@ import {
 import { RiTwitterXFill } from "react-icons/ri";
 import { IoIosSend } from "react-icons/io";
 import { useNavigate } from "react-router-dom";
-import { apiCallNew } from "../Network_Call/apiservices";
-import ApiEndPoints from "../Network_Call/ApiEndPoints";
+import axios from "axios";
+import toast from "react-hot-toast";
 
 export default function Footer() {
     const [email, setEmail] = useState('');
 
-    const HandelSubmit = async (e) => {
-        e.preventDefault();
-        try {
-            if (!email) {
-                alert('Please provide email  ');
-                return;
-            }
-            const payload = { email };
+    // API call function
+    // const handleSendEmail = async () => {
+    //     if (!email.trim()) {
+    //         toast.error('Please enter a valid email.');
+    //         return;
+    //     }
 
-            const response = await apiCallNew("post", payload, ApiEndPoints.SubscribeNow);
-            if (response.status === 200) {
-                console.log("response", response);
-            } else {
-                console.log("error", response);
-            }
-        } catch (error) {
-            console.log("error", error);
+    //     try {
+    //         const response = await axios.post('https://heblox.aercjbp.com:3003/api/create-subscriber', {
+    //             email: email,
+    //         });
+    //         console.log('API Response:', response.data);
+    //         toast.success(response.data.msg || response.data.message);
+    //     } catch (error) {
+    //         console.error('API Error:', error);
+    //         toast.error(error.msg || 'Failed to send email.');
+    //     }
+    // };
+
+
+    const handleSendEmail = async (e) => {
+        e.preventDefault();
+
+        if (!email.trim()) {
+            toast.error('Please enter a valid email.');
+            return;
         }
-    }
+
+        try {
+            const response = await axios.post('https://heblox.aercjbp.com:3003/api/create-subscriber', {
+                email: email,
+            });
+            toast.success(response.data.msg || response.data.message);
+        } catch (error) {
+            console.error(error);
+            toast.error(error.response?.data?.msg || 'Failed to subscribe.');
+        }
+    };
+
+
+
+    // const HandelSubmit = async (e) => {
+    //     e.preventDefault();
+    //     try {
+    //          
+    //         
+
+    //         const response = await apiCallNew("post", null, ApiEndPoints.CategoryList);
+    //         if (response.status === 200) {
+    //             console.log("response", response);
+    //         } else {
+    //             console.log("error", response);
+    //         }
+    //     } catch (error) {
+    //         console.log("error", error);
+    //     }
+    // }
 
 
     const navigate = useNavigate();
@@ -90,7 +128,18 @@ export default function Footer() {
                                     The Communities. Latest News, the of <br />
                                     the community.
                                 </p>
-                                <form className="footer_subscribe_form d-flex" onSubmit={HandelSubmit}>
+
+                                {/* <div>
+                                    <input
+                                        type="email"
+                                        placeholder="Enter your email"
+                                        value={email}
+                                        onChange={(e) => setEmail(e.target.value)}
+                                    />
+                                    <button onClick={handleSendEmail}>Send Email</button>
+                                </div> */}
+
+                                <form className="footer_subscribe_form d-flex" onSubmit={handleSendEmail}>
                                     <input
                                         type="email"
                                         className="footer_input"

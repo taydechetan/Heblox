@@ -86,7 +86,7 @@ export default function ProjectSection() {
                                     </div>
                                     <div className="product-buttons">
                                         <a
-                                            href="ProductDetails"
+                                            href={`/ProductDetails/${product?.slug}`}
                                             className="btn btn-view eye-icon-wrapper"
                                         >
                                             <span className="eye-icon">
